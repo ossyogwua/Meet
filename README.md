@@ -96,4 +96,12 @@ The app is be covered by tests with a coverage rate >= 90%.
 The app is monitored using an online performance monitoring tool.
 
 
+Serverless functions
+
+
+The Meet app, is strictly built with no backend maintenance. The serverless function makes the app more scalable and cost-effective.  It will also handle authorization for accessing information on public calendar events from the Google Calendar API. Users would need to be authorized before retrieving event information from the app. The serverless functions will generate and provide access tokens, ensuring secure access to the Google Calendar API. AWS Lambda will be the chosen cloud-service provider for implementing these serverless functions. 
+
+
+
+
 
