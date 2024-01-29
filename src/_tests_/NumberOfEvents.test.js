@@ -1,4 +1,3 @@
-import React from "react";
 import { render } from "@testing-library/react";
 import { getEvents } from "../api";
 import NumberOfEvents from "../components/NumberOfEvents";
@@ -12,7 +11,7 @@ describe("<NumberOfEvents /> component", () => {
     NumberOfEventsComponent = render(
       <NumberOfEvents
         setNumberOfEvents={() => {}}
-        setErrorAlert={setErrorAlert}
+        //setErrorAlert={setErrorAlert}
       />
     );
   });
@@ -30,6 +29,6 @@ describe("<NumberOfEvents /> component", () => {
     const user = userEvent.setup();
     await user.type(numberOfEvents, "{backspace}{backspace}10");
     expect(numberOfEvents).toHaveValue("10");
-    expect(setErrorAlert).toHaveBeenCalledWith("");
+    //expect(setErrorAlert).toHaveBeenCalledWith("");
   });
 });

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CitySearch from "./components/CitySearch";
+import NumberOfEvents from "./components/NumberOfEvents";
 import EventList from "./components/EventList";
 import "./App.css";
 import { extractLocations, getEvents } from "./api";
@@ -7,20 +8,31 @@ import { extractLocations, getEvents } from "./api";
 const App = () => {
   const [events, setEvents] = useState([]);
   const [allLocations, setAllLocations] = useState([]);
+  const [currentNOE, setCurrentNOE] = useState(32);
+  const [currentCity, setCurrentCity] = useState("See all cities");
 
   const fetchData = async () => {
-    const allEvents = await getEvents();
-    setEvents(allEvents);
-    setAllLocations(extractLocations(allEvents));
+    try {
+      const allEvents = await getEvents();
+      const filteredEvents =
+        currentCity === "See all cities"
+          ? allEvents
+          : allEvents.filter((event) => event.location === currentCity);
+      setEvents(filteredEvents.slice(0, currentNOE));
+      setAllLocations(extractLocations(allEvents));
+    } catch (error) {
+      console.error("Error fetching events. Please try again later.");
+    }
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentCity, currentNOE]);
 
   return (
     <div className="App">
-      <CitySearch allLocations={allLocations} />
+      <CitySearch allLocations={allLocations} setCurrentCity={setCurrentCity} />
+      <NumberOfEvents setNumberOfEvents={setCurrentNOE} />
       <EventList events={events} />
     </div>
   );

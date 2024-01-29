@@ -30,7 +30,7 @@ describe("<CitySearch /> component", () => {
     await user.click(cityTextBox);
     const suggestionList = CitySearchComponent.queryByRole("list");
     expect(suggestionList).toBeInTheDocument();
-    expect(suggestionList).toHaveClass("suggestion");
+    expect(suggestionList).toHaveClass("suggestions");
   });
 
   test("renders text input", () => {
@@ -73,7 +73,11 @@ describe("<CitySearch /> component", () => {
     const allEvents = await getEvents();
     const allLocations = extractLocations(allEvents);
     CitySearchComponent.rerender(
-      <CitySearch allLocations={allLocations} setCurrentCity={() => {}} />
+      <CitySearch
+        allLocations={allLocations}
+        setCurrentCity={() => {}}
+        //setInfoAlert={() => {}}
+      />
     );
 
     const cityTextBox = CitySearchComponent.queryByRole("textbox");
@@ -85,5 +89,6 @@ describe("<CitySearch /> component", () => {
     await user.click(Berlinsuggestion);
 
     expect(cityTextBox).toHaveValue(Berlinsuggestion.textContent);
+    //expect(setInfoAlert).toHaveBeenCalledWith("");
   });
 });

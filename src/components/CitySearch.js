@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const CitySearch = ({ allLocations, setCurrentCity }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -15,6 +15,15 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
 
     setQuery(value);
     setSuggestions(filteredLocations);
+
+    let infoText;
+    if (filteredLocations.length === 0) {
+      infoText =
+        "We can not find the city you are looking for. Please try another city";
+    } else {
+      infoText = "";
+    }
+    //console.error(infoText);
   };
 
   const handleClicked = (suggestion) => {
@@ -23,6 +32,10 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     setShowSuggestions(false); // to hide the list
     setCurrentCity(suggestion);
   };
+
+  useEffect(() => {
+    setSuggestions(allLocations);
+  }, [allLocations]);
 
   return (
     <div id="city-search">
@@ -38,12 +51,15 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
         <ul className="suggestions">
           {suggestions.map((suggestion) => {
             return (
-              <li onClick={handleClicked} key={suggestion}>
+              <li onClick={() => handleClicked(suggestion)} key={suggestion}>
                 {suggestion}
               </li>
             );
           })}
-          <li key="See all cities" onClick={handleItemClicked}>
+          <li
+            key="See all cities"
+            onClick={() => handleClicked("See all cities")}
+          >
             <b>See all cities</b>
           </li>
         </ul>

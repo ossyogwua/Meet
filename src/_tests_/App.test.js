@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, within } from "@testing-library/react";
 import App from "../App";
 import userEvent from "@testing-library/user-event";
 import { getEvents } from "../api";
@@ -17,6 +17,6 @@ describe("<App /> component", () => {
     expect(AppDOM.querySelector("#city-search")).toBeInTheDocument();
   });
   test("render NumberOfEvents", () => {
-    expect(appDom.querySelector("#numberOfEvents")).toBeInTheDocument();
+    expect(AppDOM.querySelector("#numberOfEvents")).toBeInTheDocument();
   });
 });

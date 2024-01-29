@@ -15,19 +15,19 @@ const NumberOfEvents = ({
     let infoText;
     if (isNaN(value) || value <= 0) {
       infoText = "Number of events cannot be negative";
-      setErrorAlert(infoText);
+      //setErrorAlert(infoText);
     } else {
       infoText = "";
-      setErrorAlert(infoText);
+      //setErrorAlert(infoText);
       setNumberOfEvents(value);
     }
     let infoTextNAN;
     if (isNaN(parsedValue)) {
       infoTextNAN = "Please enter a valid number";
-      setInfoAlert(infoTextNAN);
+      //setInfoAlert(infoTextNAN);
     } else {
       infoTextNAN = "";
-      setInfoAlert(infoTextNAN);
+      //setInfoAlert(infoTextNAN);
       setNumberOfEvents(parsedValue);
     }
 
