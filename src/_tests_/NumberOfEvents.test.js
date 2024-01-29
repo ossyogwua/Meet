@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import { getEvents } from "../api";
 import NumberOfEvents from "../components/NumberOfEvents";
 import userEvent from "@testing-library/user-event";
-
+//import React from "react";
 describe("<NumberOfEvents /> component", () => {
   let NumberOfEventsComponent;
   beforeEach(() => {
