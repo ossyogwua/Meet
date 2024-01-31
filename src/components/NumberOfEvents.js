@@ -12,7 +12,7 @@ const NumberOfEvents = ({
     const value = event.target.value;
     const parsedValue = parseInt(value, 10);
     setEventNumber(value);
-    //setCurrentNOE(value);
+    setCurrentNOE(value);
   };
 
   //let infoText;
