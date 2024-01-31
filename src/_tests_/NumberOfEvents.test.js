@@ -11,6 +11,7 @@ describe("<NumberOfEvents /> component", () => {
     NumberOfEventsComponent = render(
       <NumberOfEvents
         setNumberOfEvents={() => {}}
+        setCurrentNOE={() => {}}
         //setErrorAlert={setErrorAlert}
       />
     );
