@@ -1,23 +1,20 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable testing-library/no-node-access */
 import { loadFeature, defineFeature } from "jest-cucumber";
-import { render, within, waitFor } from "@testing-library/react";
 import App from "../App";
-import { getEvents } from "../mock-data";
+import { render, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { getEvents } from "../api";
+import React from "react";
 
 const feature = loadFeature("./src/features/filterEventsByCity.feature");
 
 defineFeature(feature, (test) => {
-  test("when user hasn’t searched for a city, show upcoming events from all cities.", ({
+  test("When user hasnt searched for a city, show upcoming events from all cities.", ({
     given,
     when,
     then,
   }) => {
-    given("user hasn’t searched for any city", () => {});
+    given("user hasnt searched for any city", () => {});
 
-    // eslint-disable-next-line no-unused-vars
     let AppComponent;
     when("the user opens the app", () => {
       AppComponent = render(<App />);
@@ -27,11 +24,9 @@ defineFeature(feature, (test) => {
       const AppDOM = AppComponent.container.firstChild;
       const EventListDOM = AppDOM.querySelector("#event-list");
 
-      // eslint-disable-next-line no-undef
       await waitFor(() => {
-        // eslint-disable-next-line no-undef
         const EventListItems = within(EventListDOM).queryAllByRole("listitem");
-        expect(EventListItems.length).toBe(32);
+        expect(EventListItems).toHaveLength(32);
       });
     });
   });
@@ -48,7 +43,6 @@ defineFeature(feature, (test) => {
 
     let CitySearchDOM;
     when("user starts typing in the city textbox", async () => {
-      const user = userEvent.setup();
       const AppDOM = AppComponent.container.firstChild;
       CitySearchDOM = AppDOM.querySelector("#city-search");
       const citySearchInput = within(CitySearchDOM).queryByRole("textbox");
@@ -56,7 +50,7 @@ defineFeature(feature, (test) => {
     });
 
     then(
-      "the user should receive a list of cities (suggestions) that match what they’ve typed",
+      "the user should recieve a list of cities (suggestions) that match what they’ve typed",
       async () => {
         const suggestionListItems =
           within(CitySearchDOM).queryAllByRole("listitem");
@@ -76,12 +70,11 @@ defineFeature(feature, (test) => {
       let citySearchInput;
       given("user was typing “Berlin” in the city textbox", async () => {
         AppComponent = render(<App />);
-        const user = userEvent.setup();
         AppDOM = AppComponent.container.firstChild;
 
         CitySearchDOM = AppDOM.querySelector("#city-search");
         citySearchInput = within(CitySearchDOM).queryByRole("textbox");
-        await user.type(citySearchInput, "Berlin");
+        await userEvent.type(citySearchInput, "Berlin");
       });
 
       let suggestionListItems;
@@ -93,8 +86,7 @@ defineFeature(feature, (test) => {
       when(
         "the user selects a city (e.g., “Berlin, Germany”) from the list",
         async () => {
-          const user = userEvent.setup();
-          await user.click(suggestionListItems[0]);
+          await userEvent.click(suggestionListItems[0]);
         }
       );
 
