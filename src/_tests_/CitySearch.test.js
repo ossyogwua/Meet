@@ -7,9 +7,16 @@ import App from "../App";
 
 describe("<CitySearch /> component", () => {
   let CitySearchComponent;
+  const setInfoAlert = jest.fn();
 
   beforeEach(() => {
-    CitySearchComponent = render(<CitySearch allLocations={[]} />);
+    CitySearchComponent = render(
+      <CitySearch
+        allLocations={[]}
+        setCurrentCity={() => {}}
+        setInfoAlert={setInfoAlert}
+      />
+    );
   });
 
   test("suggestion list is hidden default", () => {
@@ -38,7 +45,13 @@ describe("<CitySearch /> component", () => {
     const allEvents = await getEvents();
     const allLocations = extractLocations(allEvents);
 
-    CitySearchComponent.rerender(<CitySearch allLocations={allLocations} />);
+    CitySearchComponent.rerender(
+      <CitySearch
+        allLocations={allLocations}
+        setCurrentCity={() => {}}
+        setInfoAlert={setInfoAlert}
+      />
+    );
     // User types 'Berlin' in textbox
     const cityTextBox = CitySearchComponent.queryByRole("textbox");
     await user.type(cityTextBox, "Berlin");
@@ -66,24 +79,26 @@ describe("<CitySearch /> component", () => {
     const user = userEvent.setup();
     const allEvents = await getEvents();
     const allLocations = extractLocations(allEvents);
+
     CitySearchComponent.rerender(
       <CitySearch
         allLocations={allLocations}
         setCurrentCity={() => {}}
-        //setInfoAlert={() => {}}
+        setInfoAlert={setInfoAlert}
       />
     );
 
     const cityTextBox = CitySearchComponent.queryByRole("textbox");
     await user.type(cityTextBox, "Berlin");
 
-    // suggestion content for location will be 'Berlin, Germany'
-    const Berlinsuggestion = CitySearchComponent.queryAllByRole("listitem")[0];
+    //suggestion content for location will be 'Berlin, Germany'
+    const BerlinGermanysuggestion =
+      CitySearchComponent.queryAllByRole("listitem")[0];
 
-    await user.click(Berlinsuggestion);
+    await user.click(BerlinGermanysuggestion);
 
-    expect(cityTextBox).toHaveValue(Berlinsuggestion.textContent);
-    //expect(setInfoAlert).toHaveBeenCalledWith("");
+    expect(cityTextBox).toHaveValue(BerlinGermanysuggestion.textContent);
+    expect(setInfoAlert).toHaveBeenCalledWith("");
   });
 });
 

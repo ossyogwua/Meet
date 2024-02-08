@@ -15,3 +15,7 @@ code {
 #event-list {
   list-style-type: none;
 }
+
+.suggestions {
+  list-style-type: none;
+}

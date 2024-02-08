@@ -12,7 +12,7 @@ describe("<NumberOfEvents /> component", () => {
       <NumberOfEvents
         setNumberOfEvents={() => {}}
         setCurrentNOE={() => {}}
-        //setErrorAlert={setErrorAlert}
+        setErrorAlert={setErrorAlert}
       />
     );
   });

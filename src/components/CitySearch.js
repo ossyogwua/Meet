@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const CitySearch = ({ allLocations, setCurrentCity }) => {
+const CitySearch = ({ allLocations, setCurrentCity, setInfoAlert }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -23,14 +23,16 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     } else {
       infoText = "";
     }
+    setInfoAlert(infoText);
     //console.error(infoText);
   };
 
   const handleClicked = (suggestion) => {
-    //const value = event.target.textContent;
+    //const value = Event.target.textContent;
     setQuery(suggestion);
     setShowSuggestions(false); // to hide the list
     setCurrentCity(suggestion);
+    setInfoAlert("");
   };
 
   useEffect(() => {
