@@ -62,6 +62,7 @@ export const getEvents = async () => {
     const events = localStorage.getItem("lastEvents");
     return events ? JSON.parse(events) : [];
   }
+
   const token = await getAccessToken();
 
   if (token) {
@@ -88,7 +89,7 @@ export const getAccessToken = async () => {
     const code = await searchParams.get("code");
     if (!code) {
       const response = await fetch(
-        "https://e6892sc8qf.execute-api.eu-central-1.amazonaws.com/dev/api/get-events"
+        "https://e6892sc8qf.execute-api.eu-central-1.amazonaws.com/dev/api/get-auth-url"
       );
       const result = await response.json();
       const { authUrl } = result;
